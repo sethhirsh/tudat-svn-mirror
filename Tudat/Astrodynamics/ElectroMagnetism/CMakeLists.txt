@@ -42,6 +42,8 @@ set(ELECTROMAGNETISM_SOURCES
   "${SRCROOT}${ELECTROMAGNETISMDIR}/corotationalElectricForce.h"
   "${SRCROOT}${ELECTROMAGNETISMDIR}/corotationalElectricAcceleration.h"
   "${SRCROOT}${ELECTROMAGNETISMDIR}/localMagneticDipoleField.h"
+  "${SRCROOT}${ELECTROMAGNETISMDIR}/rotatingMagneticDipoleAcceleration.h"
+  "${SRCROOT}${ELECTROMAGNETISMDIR}/rotatingMagneticDipoleAcceleration.cpp"
 )
 
 # Set the header files.
