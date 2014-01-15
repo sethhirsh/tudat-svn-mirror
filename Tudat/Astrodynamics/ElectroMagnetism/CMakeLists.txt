@@ -41,6 +41,7 @@ set(ELECTROMAGNETISM_SOURCES
   "${SRCROOT}${ELECTROMAGNETISMDIR}/lorentzStaticMagneticAcceleration.h"
   "${SRCROOT}${ELECTROMAGNETISMDIR}/corotationalElectricForce.h"
   "${SRCROOT}${ELECTROMAGNETISMDIR}/corotationalElectricAcceleration.h"
+  "${SRCROOT}${ELECTROMAGNETISMDIR}/localMagneticDipoleField.h"
 )
 
 # Set the header files.
@@ -51,6 +52,7 @@ set(ELECTROMAGNETISM_HEADERS
   "${SRCROOT}${ELECTROMAGNETISMDIR}/lorentzStaticMagneticAcceleration.cpp"
   "${SRCROOT}${ELECTROMAGNETISMDIR}/corotationalElectricForce.cpp"
   "${SRCROOT}${ELECTROMAGNETISMDIR}/corotationalElectricAcceleration.cpp"
+  "${SRCROOT}${ELECTROMAGNETISMDIR}/localMagneticDipoleField.cpp"
 )
 
 # Add static libraries.
