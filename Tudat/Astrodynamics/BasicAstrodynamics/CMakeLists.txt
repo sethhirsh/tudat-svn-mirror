@@ -63,6 +63,7 @@ set(BASICASTRODYNAMICS_HEADERS
   "${SRCROOT}${BASICASTRODYNAMICSDIR}/modifiedEquinoctialElementConversions.h"
   "${SRCROOT}${BASICASTRODYNAMICSDIR}/stateVectorIndices.h"
   "${SRCROOT}${BASICASTRODYNAMICSDIR}/timeConversions.h"
+  "${SRCROOT}${BASICASTRODYNAMICSDIR}/physicalConstants.h"
   "${SRCROOT}${BASICASTRODYNAMICSDIR}/UnitTests/testAccelerationModels.h"
   "${SRCROOT}${BASICASTRODYNAMICSDIR}/UnitTests/testBody.h"
 )
