@@ -33,6 +33,7 @@
  */
 
 #include <cmath>
+#include <Eigen/Dense>
 #include <TudatCore/Mathematics/BasicMathematics/mathematicalConstants.h>
 #include "Tudat/Astrodynamics/ElectroMagnetism/lorentzStaticMagneticForce.h"
 #include "Tudat/Astrodynamics/BasicAstrodynamics/stateVectorIndices.h"
@@ -50,9 +51,9 @@ Eigen::Vector3d computeLorentzForceDueToStaticMagneticField(
 {
 
     //Return Lorentz force due to static magnetic field
-    return chargeOfBodySubjectToAcceleration
-            * velocityOfBodySubjectToAcceleration.cross(
-            localMagneticField );
+    return chargeOfBodySubjectToAcceleration 
+    	   * velocityOfBodySubjectToAcceleration
+    	   .cross( localMagneticField );
 
 }
 
