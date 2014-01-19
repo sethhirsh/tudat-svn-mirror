@@ -38,6 +38,7 @@
 
 #include <cmath>
 #include <Eigen/Geometry>
+#include <Eigen/Dense>
 #include <TudatCore/Mathematics/BasicMathematics/mathematicalConstants.h>
 #include "Tudat/Astrodynamics/ElectroMagnetism/localMagneticDipoleField.h"
 #include "Tudat/Astrodynamics/BasicAstrodynamics/stateVectorIndices.h"
