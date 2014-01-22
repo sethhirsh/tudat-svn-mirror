@@ -65,7 +65,7 @@ namespace unit_tests
 
 BOOST_AUTO_TEST_SUITE( test_lorentz_static_magnetic_acceleration_and_force_models )
 
-//! Test implementation of radiation force model.
+//! Test implementation of static magnetic force model.
 BOOST_AUTO_TEST_CASE( testStaticMagneticForceKhanAcademy )
 {
     // Benchmark data is obtained using online video (Khan, 2013).
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticForceKhanAcademy )
 }
 
 
-//! Test implementation of radiation force model.
+//! Test implementation of static magnetic force model.
 BOOST_AUTO_TEST_CASE( testStaticMagneticForceArbitraryCharge )
 {
     // Benchmark data is obtained using Learning About Electronics.
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticForceArbitraryCharge )
                                        std::numeric_limits< double >::min( ) );
 }
 
-//! Test implementation of radiation force model.
+//! Test implementation of static magnetic force model.
 BOOST_AUTO_TEST_CASE( testStaticMagneticForceHackworth )
 {
     // Benchmark data is obtained from pdf (Hackworth, M.).
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticForceHackworth )
                                        std::numeric_limits< double >::min( ) );
 }
 
-//! Test implementation of radiation force model.
+//! Test implementation of static magnetic acceleration model.
 BOOST_AUTO_TEST_CASE( testStaticMagneticAccelerationKhanAcademy )
 {
     // Benchmark data is obtained using online video (Khan, 2013).
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticAccelerationKhanAcademy )
                        std::numeric_limits< double >::min( ) );
 }
 
-//! Test implementation of radiation force model.
+//! Test implementation of static magnetic acceleration model.
 BOOST_AUTO_TEST_CASE( testStaticMagneticAccelerationArbitraryCharge )
 {
     // Benchmark data is obtained using Learning About Electronics.
