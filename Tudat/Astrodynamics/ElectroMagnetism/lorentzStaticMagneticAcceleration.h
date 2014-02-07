@@ -1,4 +1,4 @@
-/*    Copyright (c) 2010-2013, Delft University of Technology
+/*    Copyright (c) 2010-2014, Delft University of Technology
  *    All rights reserved.
  *
  *    Redistribution and use in source and binary forms, with or without modification, are
@@ -37,15 +37,7 @@
 #ifndef TUDAT_LORENTZ_STATIC_MAGNETIC_ACCELERATION_H
 #define TUDAT_LORENTZ_STATIC_MAGNETIC_ACCELERATION_H
 
-#include <boost/function.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/shared_ptr.hpp>
-
 #include <Eigen/Core>
-
-#include "Tudat/Astrodynamics/BasicAstrodynamics/accelerationModel.h"
-
-#include "Tudat/Astrodynamics/ElectroMagnetism/lorentzStaticMagneticForce.h"
 
 namespace tudat
 {
@@ -56,17 +48,17 @@ namespace electro_magnetism
 /*!
  * Computes Lorentz acceleration due to static magnetic field on a particle in an
  * inertial reference frame.
- * Assumes the particle is point-like. Note:This functiondoes not take into account any 
+ * Assumes the particle is point-like. Note: This function does not take into account any
  * the Coulomb force between the particle and the source.	
- * \param velocityOfBodySubjectToAcceleration velocity of body which is being accelerated
- *			by the Lorentz force                                                                [m/s]
- * \param localMagneticField local magnetic field at position of body subject to acceleration	[T·m]
- * \param chargeOfBodySubjectToAcceleration charge of body which is being accelerated by
- *			Lorentz force 																		[C]
- * \param massOfBodySubjectToAcceleration mass of body which is being accelerated by Lorentz 
- *			force 																				[kg]
- * \return Lorentz acceleration due to static magnetic field 				                    [N]
- * \sa computeLorentzForceDueToStaticMagneticField().
+ * \param velocityOfBodySubjectToAcceleration Velocity of body which is being accelerated
+ *			by the Lorentz force.                                                             [m/s]
+ * \param localMagneticField local magnetic field at position of body subject to acceleration [T·m]
+ * \param chargeOfBodySubjectToAcceleration Charge of body which is being accelerated by
+ *			Lorentz force. 																	  [C]
+ * \param massOfBodySubjectToAcceleration Mass of body which is being accelerated by Lorentz
+ *			force. 																			  [kg]
+ * \return Lorentz acceleration due to static magnetic field. 				                  [N]
+ * \sa computeLorentzForceDueToStaticMagneticField.
  */
 Eigen::Vector3d computeLorentzAccelerationDueToStaticMagneticField(
         const Eigen::Vector3d& velocityOfBodySubjectToAcceleration,

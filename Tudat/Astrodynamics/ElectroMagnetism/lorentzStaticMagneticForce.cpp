@@ -1,4 +1,4 @@
-    /*    Copyright (c) 2010-2013, Delft University of Technology
+/*    Copyright (c) 2010-2014, Delft University of Technology
  *    All rights reserved.
  *
  *    Redistribution and use in source and binary forms, with or without modification, are
@@ -32,11 +32,9 @@
  *
  */
 
-#include <cmath>
 #include <Eigen/Dense>
-#include <TudatCore/Mathematics/BasicMathematics/mathematicalConstants.h>
+
 #include "Tudat/Astrodynamics/ElectroMagnetism/lorentzStaticMagneticForce.h"
-#include "Tudat/Astrodynamics/BasicAstrodynamics/stateVectorIndices.h"
 
 namespace tudat
 {
@@ -49,10 +47,8 @@ Eigen::Vector3d computeLorentzForceDueToStaticMagneticField(
         const Eigen::Vector3d& localMagneticField,
         const double chargeOfBodySubjectToAcceleration )
 {
-
     //Return Lorentz force due to static magnetic field
-    return chargeOfBodySubjectToAcceleration 
-    	   * velocityOfBodySubjectToAcceleration
+    return chargeOfBodySubjectToAcceleration * velocityOfBodySubjectToAcceleration
     	   .cross( localMagneticField );
 
 }

@@ -1,4 +1,4 @@
-/*    Copyright (c) 2010-2013, Delft University of Technology
+/*    Copyright (c) 2010-2014, Delft University of Technology
  *    All rights reserved.
  *
  *    Redistribution and use in source and binary forms, with or without modification, are
@@ -46,8 +46,6 @@
 #include <cmath>
 #include <limits>
 
-#include <boost/make_shared.hpp>
-#include <boost/test/floating_point_comparison.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <Eigen/Core>
@@ -96,9 +94,9 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticForceKhanAcademy )
     BOOST_CHECK_SMALL( computedStaticMagneticForce.x( ),
                        std::numeric_limits< double >::min( ) );
 
-    BOOST_CHECK_SMALL( std::fabs( computedStaticMagneticForce.y( )
-                                - expectedStaticMagneticForce.y( ) ),
-                       std::numeric_limits< double >::min() );
+    BOOST_CHECK_CLOSE_FRACTION( computedStaticMagneticForce.y( ),
+                                expectedStaticMagneticForce.y( ),
+                                std::numeric_limits< double >::epsilon( ) );
 
     BOOST_CHECK_SMALL( computedStaticMagneticForce.z( ),
                        std::numeric_limits< double >::min( ) );
@@ -134,7 +132,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticForceArbitraryCharge )
     // Compare computed and expected static magnetic force vectors.
     TUDAT_CHECK_MATRIX_CLOSE_FRACTION( computedStaticMagneticForce,
                                        expectedStaticMagneticForce,
-                                       std::numeric_limits< double >::min( ) );
+                                       std::numeric_limits< double >::epsilon( ) );
 }
 
 //! Test implementation of static magnetic force model.
@@ -165,7 +163,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticForceHackworth )
     // Compare computed and expected static magnetic force vectors.
     TUDAT_CHECK_MATRIX_CLOSE_FRACTION( computedStaticMagneticForce,
                                        expectedStaticMagneticForce,
-                                       std::numeric_limits< double >::min( ) );
+                                       std::numeric_limits< double >::epsilon( ) );
 }
 
 //! Test implementation of static magnetic acceleration model.
@@ -176,7 +174,8 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticAccelerationKhanAcademy )
     // Tests approximate force on a proton due to a static uniform magnetic field. 
 
     // Set expected static magnetic force [N].
-    const Eigen::Vector3d expectedStaticMagneticAcceleration = Eigen::Vector3d( 0.0, -2.8736514e15, 0.0 );
+    const Eigen::Vector3d expectedStaticMagneticAcceleration =
+            Eigen::Vector3d( 0.0, -2.8736514e15, 0.0 );
 
     // Set velocity of accelerated body [m/s].
     const Eigen::Vector3d velocityOfBodySubjectToAcceleration = Eigen::Vector3d( 6.0e7, 0.0, 0.0 );
@@ -244,7 +243,7 @@ BOOST_AUTO_TEST_CASE( testStaticMagneticAccelerationArbitraryCharge )
     // Compare computed and expected static magnetic acceleration vectors.
     TUDAT_CHECK_MATRIX_CLOSE_FRACTION( computedStaticMagneticAcceleration,
                                        expectedStaticMagneticAcceleration,
-                                       std::numeric_limits< double >::min( ) );
+                                       std::numeric_limits< double >::epsilon( ) );
 }
 
 
