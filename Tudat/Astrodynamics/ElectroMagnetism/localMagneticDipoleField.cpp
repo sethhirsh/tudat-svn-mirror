@@ -74,19 +74,32 @@ Eigen::Vector3d computeLocalStaticMagneticDipoleField(
 
     // Compute angle between axis of magnetic field and z axis
     const double angleOfMagneticAxisDeclination = std::acos(
-                Eigen::Vector3d( 0,0,1 )
+                Eigen::Vector3d( 0.0,0.0,1.0 )
                 .dot( axisOfMagneticField ) );
 
     // Compute vector perpendicular to axis of magnetic field and z axis
-    const Eigen::Vector3d axisOfRotation = Eigen::Vector3d( 0,0,1 ).cross( axisOfMagneticField );
+    const Eigen::Vector3d axisOfRotation = Eigen::Vector3d( 0.0,0.0,1.0 ).cross( axisOfMagneticField );
 
-    // Compute rotated position of body subject to acceleration
-    const Eigen::Vector3d rotatedPosition = 
+
+    Eigen::Vector3d rotatedPosition(0.0,0.0,0.0);
+
+    // Check if angle of magnetic axis declination is zero. In this case no rotation is needed.
+    if (angleOfMagneticAxisDeclination == 0.0)
+    {
+        rotatedPosition = displacementOfBodyFromMagneticField;
+    }
+    else
+    {
+        
+        // Compute rotated position of body subject to acceleration
+        rotatedPosition = 
             tudat::basic_mathematics::computeRotationOfPointAboutArbitraryAxis( 
                                         originOfMagneticField,
                                         -angleOfMagneticAxisDeclination,
                                         axisOfRotation,
                                         displacementOfBodyFromMagneticField );
+
+    }
 
     Eigen::Vector3d rotatedMagneticFieldDueToDipoleMoment = 
             Eigen::Vector3d::Constant( preMultiplier );
@@ -117,14 +130,23 @@ Eigen::Vector3d computeLocalStaticMagneticDipoleField(
     		- distanceBetweenBodies * distanceBetweenBodies;
 
 
+    Eigen::Vector3d MagneticFieldDueToDipoleMoment;
+
+    if (angleOfMagneticAxisDeclination == 0.0)
+    {
+        MagneticFieldDueToDipoleMoment = rotatedMagneticFieldDueToDipoleMoment;
+    }
+    else
+    {
     // Undo rotation of magnetic dipole moment vector back to "unrotated position"
-    const Eigen::Vector3d MagneticFieldDueToDipoleMoment = 
+    MagneticFieldDueToDipoleMoment = 
             tudat::basic_mathematics::computeRotationOfVectorAboutArbitraryAxis(
                 originOfMagneticField,
                 angleOfMagneticAxisDeclination,
                 axisOfRotation,
                 rotatedPosition,
                 rotatedMagneticFieldDueToDipoleMoment );
+    }
 
     //Return the local magnetic field using static dipole model
     return MagneticFieldDueToDipoleMoment;

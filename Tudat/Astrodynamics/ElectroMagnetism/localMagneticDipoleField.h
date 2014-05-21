@@ -53,10 +53,10 @@ namespace electro_magnetism
  *			magnetic dipole moment 																[m]
  * \param axisOfMagneticField unitvector that points in the direction of the symmetry axis of
  *			magnetic dipole field.																[-]
- * \param dipoleMomentOfMagneticField magnetic dipole moment from body exerting acceleration 	[T·m]
+ * \param dipoleMomentOfMagneticField magnetic dipole moment from body exerting acceleration 	[A·m^2]
  * \param permeabilityOfSpaceBetweenBodies permeability of space between bodies. The default for 
  *			this value is the magnetic constant which is defined as 4*pi*10^-7 V·s/(A·m)  [V·s/(A·m)]
- * \return local magnetic field using static dipole model			                            [T·m]
+ * \return local magnetic field using static dipole model			                            [T]
  */
 
 //! Compute local magnetic field using static dipole model.
