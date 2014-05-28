@@ -54,9 +54,8 @@ Eigen::Vector3d computeIsotropicPoyntingRobertsonDragForce(
 
     // Return force due to Poynting-Robertson drag [N].
     return radiationPressureForce 
-        * ( ( 1.0 - radialVelocity / tudat::physical_constants::SPEED_OF_LIGHT ) 
-            * vectorFromSource - velocityOfAcceleratedBody 
-            / tudat::physical_constants::SPEED_OF_LIGHT );
+        * ( -radialVelocity / tudat::physical_constants::SPEED_OF_LIGHT * vectorFromSource 
+            - velocityOfAcceleratedBody / tudat::physical_constants::SPEED_OF_LIGHT );
 }
 
 } // namespace electro_magnetism
