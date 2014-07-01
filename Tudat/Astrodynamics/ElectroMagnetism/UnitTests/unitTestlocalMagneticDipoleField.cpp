@@ -61,38 +61,38 @@ namespace unit_tests
 
 BOOST_AUTO_TEST_SUITE( test_local_magnetic_dipole_field_model )
 
-//! Test implementation of radiation force model.
+//! Test implementation of magnetic dipole field model
 BOOST_AUTO_TEST_CASE( testAlignedDipoleModelEarth )
 {
-    // Benchmark data is obtained from MATLAB script (Ganeff, 2012).
+    // Benchmark data is obtained python script (Öztürk, 2011).
 
-    // Set expected radiation pressure force [N].
+    // Set expected local magnetic dipole field [T].
     const Eigen::Vector3d expectedLocalMagneticDipoleField =
             Eigen::Vector3d( -0.0004237415112954681, 
                              -0.0004237415112954681, 
                              0.000538084458787896 );
 
-    // Set radius of Earth
+    // Set radius of Earth [m]
     const double radiusOfEarth = 6378137.0;
 
-    // Set position of body subject to acceleration
+    // Set position of body subject to magnetic field [m]
     const Eigen::Vector3d positionOfBodySubjectToAcceleration = 
             Eigen::Vector3d(7000.0, 7000.0, 3000.0);
 
-    // Set origin of magnetic field
-    const Eigen::Vector3d originOfMagneticField = Eigen::Vector3d(0.0,0.0,0.0);
+    // Set origin of magnetic field [m]
+    const Eigen::Vector3d originOfMagneticField = Eigen::Vector3d( 0.0,0.0,0.0 );
 
     // Set axis of magnetic field
-    const Eigen::Vector3d axisOfMagneticField = Eigen::Vector3d(0.0,0.0,1.0);
+    const Eigen::Vector3d axisOfMagneticField = Eigen::Vector3d( 0.0,0.0,-1.0 );
 
-    // Approximate mean value of the magnetic field at the magnetic equator on the Earth's surface
+    // Approximate mean value of the magnetic field at the magnetic equator on the Earth's surface [A/m]
     const double meanMagneticFieldAtEquator = 3.07e-5;
 
-    // Set dipole moment of magnetic field (what's the deal with the minus sign?)
-    const double dipoleMomentOfMagneticField = meanMagneticFieldAtEquator * -1.0 * 
-                                               radiusOfEarth*radiusOfEarth*radiusOfEarth;
+    // Set dipole moment of magnetic field [Am^2]
+    const double dipoleMomentOfMagneticField = meanMagneticFieldAtEquator * 
+                                               radiusOfEarth * radiusOfEarth * radiusOfEarth;
 
-
+    // Compute local magnetic dipole field [T]
     const Eigen::Vector3d computedLocalDipoleField
                 = electro_magnetism::computeLocalStaticMagneticDipoleField(
                     positionOfBodySubjectToAcceleration, originOfMagneticField, 
@@ -108,34 +108,35 @@ BOOST_AUTO_TEST_CASE( testAlignedDipoleModelEarth )
 //! Test implementation of radiation force model.
 BOOST_AUTO_TEST_CASE( testTiltedMagneticDipole )
 {
-    // Benchmark data is obtained from MATLAB script (Ganeff, 2012).
+    // Benchmark data is obtained from Python script (Dahle, 2012).
 
-    // Set expected radiation pressure force [N].
+    // Set expected local magnetic dipole field [N].
     const Eigen::Vector3d expectedLocalMagneticDipoleField =
-            Eigen::Vector3d( -1.15013283e-5, 
-                             0.0, 
-                             -2.95846024e-5 );
+            Eigen::Vector3d( -1.15013283e-5, 0.0, -2.95846024e-5 );
 
-    // Set radius of Earth
+    // Set radius of Earth [m]
     const double radiusOfEarth = 6.37e6;
 
-    // Set position of body subject to acceleration
+    // Set position of body subject to acceleration [m]
     const Eigen::Vector3d positionOfBodySubjectToAcceleration = 
-            Eigen::Vector3d(radiusOfEarth, 0.0, 0.0);
+            Eigen::Vector3d( radiusOfEarth, 0.0, 0.0 );
 
-    // Set origin of magnetic field
-    const Eigen::Vector3d originOfMagneticField = Eigen::Vector3d(0.0,0.0,0.0);
+    // Set origin of magnetic field [m]
+    const Eigen::Vector3d originOfMagneticField = Eigen::Vector3d( 0.0,0.0,0.0 );
 
     // Angle between the z-axis and Earth's magnetic dipole moment
     const double declinationOfMagneticDipoleAxis = -11.0 / 180.0 * 
                         tudat::basic_mathematics::mathematical_constants::PI; 
 
     // Set axis of magnetic field
-    const Eigen::Vector3d axisOfMagneticField = Eigen::Vector3d( sin(declinationOfMagneticDipoleAxis) ,0.0, cos(declinationOfMagneticDipoleAxis));
+    const Eigen::Vector3d axisOfMagneticField = Eigen::Vector3d( 
+                            sin(declinationOfMagneticDipoleAxis),0.0, 
+                            cos(declinationOfMagneticDipoleAxis));
 
-    // Set dipole moment of magnetic field (what's the deal with the minus sign?) [A m^2]
+    // Set dipole moment of magnetic field [A m^2]
     const double dipoleMomentOfMagneticField = 7.79e22;
 
+    // Compute local magnetic dipole field [T]
     const Eigen::Vector3d computedLocalMagneticDipoleField
                 = electro_magnetism::computeLocalStaticMagneticDipoleField(
                     positionOfBodySubjectToAcceleration, originOfMagneticField, 
@@ -153,6 +154,93 @@ BOOST_AUTO_TEST_CASE( testTiltedMagneticDipole )
                     - expectedLocalMagneticDipoleField.z( ), 1.0e-9);
 
 }
+
+//! Test implementation of radiation force model.
+BOOST_AUTO_TEST_CASE( testLargeTiltedMagneticDipole )
+{
+    // Benchmark data is obtained from Python script (Dahle, 2012).
+
+    // Set expected local magnetic dipole field [T]
+    const Eigen::Vector3d expectedLocalMagneticDipoleField =
+            Eigen::Vector3d( 36.4073783, 
+                             53.63727325, 
+                             57.94474698);
+
+    // Set radius of Earth [m]
+    const double radiusOfEarth = 6.37e6;
+
+    // Set position of body subject to acceleration [m]
+    const Eigen::Vector3d positionOfBodySubjectToAcceleration = 
+            Eigen::Vector3d( 2.0 * radiusOfEarth, 4.0 * radiusOfEarth, 8.0 * radiusOfEarth );
+
+    // Set origin of magnetic field [m]
+    const Eigen::Vector3d originOfMagneticField = Eigen::Vector3d(0.0,0.0,0.0);
+
+    // Angle between the z-axis and Earth's magnetic dipole moment
+    const double declinationOfMagneticDipoleAxis = -11.0 / 180.0 * 
+                        tudat::basic_mathematics::mathematical_constants::PI; 
+
+    // Set axis of magnetic field
+    const Eigen::Vector3d axisOfMagneticField = Eigen::Vector3d( sin(declinationOfMagneticDipoleAxis) ,0.0, cos(declinationOfMagneticDipoleAxis));
+
+    // Set dipole moment of magnetic field [A m^2]
+    const double dipoleMomentOfMagneticField = 1.0e32;
+
+    const Eigen::Vector3d computedLocalMagneticDipoleField
+                = electro_magnetism::computeLocalStaticMagneticDipoleField(
+                    positionOfBodySubjectToAcceleration, originOfMagneticField, 
+                    axisOfMagneticField, dipoleMomentOfMagneticField );
+
+
+    // Compare computed and expected local magnetic dipole field vectors.
+    TUDAT_CHECK_MATRIX_CLOSE( computedLocalMagneticDipoleField,
+                              expectedLocalMagneticDipoleField, 1.0e-7 );
+}
+
+
+//! Test implementation of radiation force model.
+BOOST_AUTO_TEST_CASE( testLargeTilted90DegreeMagneticDipole )
+{
+    // Benchmark data is obtained from Python script (Dahle, 2012).
+
+    // Set expected local magnetic dipole field [T].
+    const Eigen::Vector3d expectedLocalMagneticDipoleField =
+            Eigen::Vector3d( -10.15265741, 
+                             50.76328706, 
+                             65.99227318);
+
+    // Set radius of Earth [m]
+    const double radiusOfEarth = 6.37e6;
+
+    // Set position of body subject to acceleration [m]
+    const Eigen::Vector3d positionOfBodySubjectToAcceleration = 
+            Eigen::Vector3d( 2.0 * radiusOfEarth, 4.0 * radiusOfEarth, 8.0 * radiusOfEarth );
+
+    // Set origin of magnetic field [m]
+    const Eigen::Vector3d originOfMagneticField = Eigen::Vector3d(0.0,0.0,0.0);
+
+    // Angle between the z-axis and Earth's magnetic dipole moment
+    const double declinationOfMagneticDipoleAxis =  tudat::basic_mathematics::mathematical_constants::PI * 0.25; 
+
+    // Set axis of magnetic field
+    const Eigen::Vector3d axisOfMagneticField = Eigen::Vector3d( sin(declinationOfMagneticDipoleAxis) ,0.0, cos(declinationOfMagneticDipoleAxis));
+
+    // Set dipole moment of magnetic field [A m^2]
+    const double dipoleMomentOfMagneticField = 1.0e32;
+
+    const Eigen::Vector3d computedLocalMagneticDipoleField
+                = electro_magnetism::computeLocalStaticMagneticDipoleField(
+                    positionOfBodySubjectToAcceleration, originOfMagneticField, 
+                    axisOfMagneticField, dipoleMomentOfMagneticField );
+
+
+    // Compare computed and expected local magnetic dipole field vectors.
+    TUDAT_CHECK_MATRIX_CLOSE( computedLocalMagneticDipoleField,
+                              expectedLocalMagneticDipoleField, 1.0e-7 );
+}
+
+
+
 
 BOOST_AUTO_TEST_SUITE_END( )
 
